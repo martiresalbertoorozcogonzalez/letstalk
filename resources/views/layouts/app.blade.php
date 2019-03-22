@@ -16,6 +16,10 @@
 </head>
 <body>
 
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+@csrf
+</form>    
+
 <div id="app">
         
          <b-navbar toglleable type="dark" variant="primary">
@@ -28,17 +32,18 @@
 
               <b-collapse is-nav id="nav_text_collapse">
                    
-                   <b-navbar-nav class="ml-auto">
+                 <b-navbar-nav class="ml-auto">
                     @guest
                       <b-nav-item href="{{ route('login') }}">Ingresar</b-nav-item>
                       <b-nav-item href="{{ route('register') }}">Registrar</b-nav-item>
                     @else  
-                      
-                      <b-nav-item-dropdown text="Username" right>
-                        <b-dropdown-item href="#">Cerrar sesion</b-dropdown-item>
+                      <b-nav-item-dropdown text="{{ auth()->user()->name }}" right>
+                        <b-dropdown-item href="#" @click="logout">
+                          Cerrar sesion
+                        </b-dropdown-item>
                       </b-nav-item-dropdown>
                     @endguest  
-                    </b-navbar-nav>
+                  </b-navbar-nav>
 
               </b-collapse>    
        

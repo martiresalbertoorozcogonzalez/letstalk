@@ -8,39 +8,43 @@
         
         <b-col cols="8">
             
-            <b-card title="Inicio de sesion">
-            
-            <b-alert show>Porfavor ingresa tus datos</b-alert>
+            <b-card title="Inicio de sesion" class="my-4">
            
+
+         @if ($errors->any())  
+             <b-alert show variant="danger">
+               <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                 <li>{{ $error }}</li>
+                @endforeach 
+               </ul>
+             </b-alert>
+          @else
+             <b-alert show>
+               Porfavor ingresa tus datos
+             </b-alert>     
+          @endif  
+            
             <b-form  method="POST" action="{{ route('login') }}">
-                
                 {{ csrf_field() }}
 
                 <b-form-group
                     label="Correo electronico:"
-                    label-for="email"
-                    description="Nunca compartiremos tu correo. Esta seguro con nosotros.">
+                    label-for="email">
 
-                        <b-form-input id="email"
-                          type="email"
-                          value="{{ old('email') }}" 
-                          required 
-                          autofocus
+                        <b-form-input type="email"
+                          id="email"
+                          name="email"
+                          value="{{ old('email') }}" required autofocus
                           placeholder="example@programcionymas.com">
                         </b-form-input> 
                 </b-form-group>
 
                   
-                <b-form-group 
-                        label="Contrasena:"
-                        label-for="password">
-                        
-                        <b-form-input id="password" 
+                <b-form-group label="Contrasena" label-for="password">
+                        <b-form-input type="password"
                         id="password"
-                        name="password"
-                        type="password"
-                        value="{{ old('password') }}"
-                        required/>
+                        name="password"required>
                        </b-form-input>
                 </b-form-group>
 
@@ -63,8 +67,7 @@
                 <b-button href="{{ route('password.request') }}" variant="link">
                     Olvidaste tu contrasena?
                 </b-button>
-
-
+            
             </b-form>
 
 
