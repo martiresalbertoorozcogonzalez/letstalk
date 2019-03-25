@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html class="h-100">
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -14,13 +14,13 @@
 
   
 </head>
-<body>
+<body class="h-100">
 
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 @csrf
 </form>    
 
-<div id="app">
+<div id="app" class="h-100">
         
          <b-navbar toglleable type="dark" variant="primary">
            
