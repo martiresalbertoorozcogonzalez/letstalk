@@ -1831,12 +1831,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log("Component mounted.");
   }
 });
 
@@ -27757,7 +27766,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("b-card", [
                     _vm._v(
-                      "\r\n              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.\r\n             \r\n            "
+                      "\n                    Cras sit amet nibh libero, in gravida nulla. Nulla vel\n                    metus scelerisque ante sollicitudin.\n                "
                     )
                   ])
                 ],
@@ -27785,7 +27794,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("b-card", [
                     _vm._v(
-                      "\r\n              Cras sit amet nibh libero, in gravida nulla. \r\n              \r\n            "
+                      "\n                    Aqui es la connversacion de la pagina de ejemplo.\n                "
                     )
                   ])
                 ],
@@ -27859,7 +27868,7 @@ var render = function() {
           _c("hr"),
           _vm._v(" "),
           _c("b-form-checkbox", [
-            _vm._v("\r\n        Descativar notificaciones\r\n    ")
+            _vm._v("\n            Descativar notificaciones\n        ")
           ])
         ],
         1

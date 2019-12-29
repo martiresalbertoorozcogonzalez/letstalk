@@ -74,7 +74,6 @@
         </b-col>
 
     </b-row>
-    
 </b-container>
 
 @endsection
