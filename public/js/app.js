@@ -1934,6 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1950,6 +1951,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/conversations").then(function (response) {
         _this.conversations = response.data;
       });
+    },
+    selectConversation: function selectConversation(conversation) {
+      console.log(conversation);
     }
   }
 });
@@ -28011,7 +28015,12 @@ var render = function() {
         _vm._l(_vm.conversations, function(conversation) {
           return _c("contact-component", {
             key: conversation.id,
-            attrs: { conversation: conversation }
+            attrs: { conversation: conversation },
+            nativeOn: {
+              click: function($event) {
+                return _vm.selectConversation(conversation)
+              }
+            }
           })
         }),
         1
