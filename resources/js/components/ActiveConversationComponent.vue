@@ -7,15 +7,11 @@
         title="Conversacion activa"
         class="h-100"
       >
-        <message-conversation-component>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel
-          metus scelerisque ante sollicitudin.
-        </message-conversation-component>
-
-        <message-conversation-component written-by-me>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel
-          metus scelerisque.
-        </message-conversation-component>
+        <message-conversation-component
+          v-for="message in messages"
+          :key="message.id"
+          :written-by-me="message.written_by_me"
+        >{{ message.content}}</message-conversation-component>
 
         <div slot="footer">
           <b-form class="mb-0">
