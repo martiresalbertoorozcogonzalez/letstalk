@@ -1814,10 +1814,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      messages: []
+    };
   },
   mounted: function mounted() {
-    console.log("Component mounted.");
+    var _this = this;
+
+    axios.get("/api/messages").then(function (response) {
+      console.log(response.data);
+      _this.messages = response.data;
+    });
   }
 });
 
@@ -1898,28 +1905,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log("Component mounted.");
   }
 });
 
@@ -1952,8 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
       content: "abc"
     };
   },
-  mounted: function mounted() {
-    console.log("el valor de writtenByMe:", this.writtenByMe);
+  mounted: function mounted() {// console.log("el valor de writtenByMe:", this.writtenByMe);
   }
 });
 
@@ -27958,7 +27948,7 @@ var render = function() {
         { staticClass: "my-3 mx-2" },
         [
           _c("b-form-input", {
-            staticClass: "text-center ",
+            staticClass: "text-center",
             attrs: { type: "text", placeholder: "Buscar contacto...." }
           })
         ],

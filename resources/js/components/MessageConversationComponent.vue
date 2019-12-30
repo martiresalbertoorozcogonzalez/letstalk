@@ -18,7 +18,7 @@ export default {
     };
   },
   mounted() {
-    console.log("el valor de writtenByMe:", this.writtenByMe);
+    // console.log("el valor de writtenByMe:", this.writtenByMe);
   }
 };
 </script>
