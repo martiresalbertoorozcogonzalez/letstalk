@@ -24,7 +24,20 @@ class ConversationsTableSeeder extends Seeder
             //  'has_blocked' => ,
 
         ]);
-      
+
+        Conversation::create([
+
+            'user_id' => 1,
+            'contact_id' => 3,
+
+            'last_message' => null,
+            'last_time' => null,
+
+            //  'listen_notification' => ,
+            //  'has_blocked' => ,
+
+        ]);
+
         Conversation::create([
 
             'user_id' => 2,
@@ -37,6 +50,5 @@ class ConversationsTableSeeder extends Seeder
             //  'has_blocked' => ,
 
         ]);
-
     }
 }
