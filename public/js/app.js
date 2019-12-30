@@ -1817,7 +1817,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       messages: [],
-      newMessage: ""
+      newMessage: "",
+      contactId: 2
     };
   },
   mounted: function mounted() {
@@ -1827,7 +1828,7 @@ __webpack_require__.r(__webpack_exports__);
     getMessages: function getMessages() {
       var _this = this;
 
-      axios.get("/api/messages").then(function (response) {
+      axios.get("/api/messages?contact_id=".concat(this.contactId)).then(function (response) {
         // console.log(response.data);
         _this.messages = response.data;
       });
@@ -1836,7 +1837,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var params = {
-        to_id: 2,
+        to_id: this.contactId,
         content: this.newMessage
       };
       axios.post("/api/messages", params).then(function (response) {

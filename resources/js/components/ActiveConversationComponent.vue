@@ -53,7 +53,8 @@ export default {
   data() {
     return {
       messages: [],
-      newMessage: ""
+      newMessage: "",
+      contactId: 2
     };
   },
   mounted() {
@@ -61,14 +62,14 @@ export default {
   },
   methods: {
     getMessages() {
-      axios.get("/api/messages").then(response => {
+      axios.get(`/api/messages?contact_id=${this.contactId}`).then(response => {
         // console.log(response.data);
         this.messages = response.data;
       });
     },
     postMessage() {
       const params = {
-        to_id: 2,
+        to_id: this.contactId,
         content: this.newMessage
       };
       axios.post("/api/messages", params).then(response => {
