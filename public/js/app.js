@@ -1934,7 +1934,14 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   mounted: function mounted() {
-    console.log("Component mounted.");
+    this.getConversations();
+  },
+  methods: {
+    getConversations: function getConversations() {
+      axios.get("/api/conversations").then(function (response) {
+        console.log(response.data);
+      });
+    }
   }
 });
 
