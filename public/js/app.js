@@ -1814,11 +1814,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    contactId: Number
+  },
   data: function data() {
     return {
       messages: [],
-      newMessage: "",
-      contactId: 2
+      newMessage: ""
     };
   },
   mounted: function mounted() {
@@ -2018,14 +2020,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      selectedConversation: null
+    };
   },
   mounted: function mounted() {},
   methods: {
     changeActiveConversation: function changeActiveConversation(conversation) {
-      console.log("Nueva conversacion seleccionada", conversation);
+      //   console.log("Nueva conversacion seleccionada", conversation);
+      this.selectedConversation = conversation;
     }
   }
 });
@@ -28162,7 +28170,13 @@ var render = function() {
           _c(
             "b-col",
             { attrs: { cols: "8" } },
-            [_c("active-conversation-component")],
+            [
+              _vm.selectedConversation
+                ? _c("active-conversation-component", {
+                    attrs: { "contact-id": _vm.selectedConversation.contact_id }
+                  })
+                : _vm._e()
+            ],
             1
           )
         ],

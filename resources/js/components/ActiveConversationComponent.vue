@@ -50,11 +50,13 @@
 
 <script>
 export default {
+  props: {
+    contactId: Number
+  },
   data() {
     return {
       messages: [],
-      newMessage: "",
-      contactId: 2
+      newMessage: ""
     };
   },
   mounted() {
