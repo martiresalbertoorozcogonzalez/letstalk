@@ -82,6 +82,12 @@ export default {
         }
       });
     }
+  },
+  watch: {
+    contactId(value) {
+      console.log(`contactId => ${this.contactId}`);
+      this.getMessages();
+    }
   }
 };
 </script>

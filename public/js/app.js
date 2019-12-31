@@ -1851,6 +1851,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  watch: {
+    contactId: function contactId(value) {
+      console.log("contactId => ".concat(this.contactId));
+      this.getMessages();
+    }
   }
 });
 
