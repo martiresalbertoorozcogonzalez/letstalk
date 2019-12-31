@@ -1815,28 +1815,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    contactId: Number
+    contactId: Number,
+    contactName: String,
+    messages: Array
   },
   data: function data() {
     return {
-      messages: [],
       newMessage: ""
     };
   },
-  mounted: function mounted() {
-    this.getMessages();
-  },
+  mounted: function mounted() {},
   methods: {
-    getMessages: function getMessages() {
-      var _this = this;
-
-      axios.get("/api/messages?contact_id=".concat(this.contactId)).then(function (response) {
-        // console.log(response.data);
-        _this.messages = response.data;
-      });
-    },
     postMessage: function postMessage() {
-      var _this2 = this;
+      var _this = this;
 
       var params = {
         to_id: this.contactId,
@@ -1845,17 +1836,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/api/messages", params).then(function (response) {
         // console.log(response.data);
         if (response.data.succes) {
-          _this2.newMessage = "";
-
-          _this2.getMessages();
+          _this.newMessage = "";
         }
       });
-    }
-  },
-  watch: {
-    contactId: function contactId(value) {
-      console.log("contactId => ".concat(this.contactId));
-      this.getMessages();
     }
   }
 });
@@ -2028,21 +2011,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    userId: Number
+  },
   data: function data() {
     return {
-      selectedConversation: null
+      selectedConversation: null,
+      messages: []
     };
   },
   mounted: function mounted() {
-    Echo.channel("example").listen("MessageSent", function (e) {
-      console.log(e);
+    var _this = this;
+
+    Echo.channel("example").listen("MessageSent", function (data) {
+      var message = data.message;
+      message.writen_by_me = _this.userId == message.from_id;
+      console.log(message);
+
+      _this.messages.push(message);
     });
   },
   methods: {
     changeActiveConversation: function changeActiveConversation(conversation) {
-      //   console.log("Nueva conversacion seleccionada", conversation);
       this.selectedConversation = conversation;
+      this.getMessages();
+    },
+    getMessages: function getMessages() {
+      var _this2 = this;
+
+      axios.get("/api/messages?contact_id=".concat(this.selectedConversation.contact_id)).then(function (response) {
+        // console.log(response.data);
+        _this2.messages = response.data;
+      });
     }
   }
 });
@@ -38043,7 +38046,11 @@ var render = function() {
             [
               _vm.selectedConversation
                 ? _c("active-conversation-component", {
-                    attrs: { "contact-id": _vm.selectedConversation.contact_id }
+                    attrs: {
+                      "contact-id": _vm.selectedConversation.contact_id,
+                      "contact-name": _vm.selectedConversation.contact_name,
+                      messages: _vm.messages
+                    }
                   })
                 : _vm._e()
             ],
