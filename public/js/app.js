@@ -1842,7 +1842,15 @@ __webpack_require__.r(__webpack_exports__);
           _this.newMessage = "";
         }
       });
+    },
+    scrollToBottom: function scrollToBottom() {
+      var el = document.querySelector(".card-body-scroll");
+      el.scrollTop = el.scrollHeight;
     }
+  },
+  updated: function updated() {
+    this.scrollToBottom();
+    console.log("el mensage a cambiado");
   }
 });
 
@@ -26087,7 +26095,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card-body-scrool {\r\n  max-height: calc(90vh - 63px);\r\n  overflow-y: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n.card-body-scroll {\r\n  max-height: calc(90vh - 63px);\r\n  overflow-y: auto;\n}\r\n", ""]);
 
 // exports
 
@@ -37763,7 +37771,7 @@ var render = function() {
             [
               _c(
                 "b-card-body",
-                { staticClass: "card-body-scrool" },
+                { staticClass: "card-body-scroll" },
                 _vm._l(_vm.messages, function(message) {
                   return _c(
                     "message-conversation-component",

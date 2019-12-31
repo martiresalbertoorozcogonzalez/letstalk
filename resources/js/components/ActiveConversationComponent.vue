@@ -8,7 +8,7 @@
         title="Conversacion activa"
         class="h-100"
       >
-        <b-card-body class="card-body-scrool">
+        <b-card-body class="card-body-scroll">
           <message-conversation-component
             v-for="message in messages"
             :key="message.id"
@@ -76,13 +76,22 @@ export default {
           this.newMessage = "";
         }
       });
+    },
+
+    scrollToBottom() {
+      const el = document.querySelector(".card-body-scroll");
+      el.scrollTop = el.scrollHeight;
     }
+  },
+  updated() {
+    this.scrollToBottom();
+    console.log("el mensage a cambiado");
   }
 };
 </script>
 
 <style>
-.card-body-scrool {
+.card-body-scroll {
   max-height: calc(90vh - 63px);
   overflow-y: auto;
 }
