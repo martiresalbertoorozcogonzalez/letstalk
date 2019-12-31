@@ -2028,14 +2028,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       selectedConversation: null
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    Echo.channel("example").listen("MessageSent", function (e) {
+      console.log(e);
+    });
+  },
   methods: {
     changeActiveConversation: function changeActiveConversation(conversation) {
       //   console.log("Nueva conversacion seleccionada", conversation);
@@ -50243,8 +50246,8 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   broadcaster: "pusher",
-  key: "",
-  cluster: "mt1",
+  key: "49bf9d4138f555736a6e",
+  cluster: "us2",
   encrypted: true
 });
 

@@ -15,7 +15,6 @@
   </b-container>
 </template>
 
-
 <script>
 export default {
   data() {
@@ -23,7 +22,11 @@ export default {
       selectedConversation: null
     };
   },
-  mounted() {},
+  mounted() {
+    Echo.channel("example").listen("MessageSent", e => {
+      console.log(e);
+    });
+  },
   methods: {
     changeActiveConversation(conversation) {
       //   console.log("Nueva conversacion seleccionada", conversation);
