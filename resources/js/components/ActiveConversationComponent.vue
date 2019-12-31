@@ -2,16 +2,19 @@
   <b-row>
     <b-col cols="8">
       <b-card
+        no-body
         footer-bg-variant="ligth"
         footer-border-variant="dark"
         title="Conversacion activa"
         class="h-100"
       >
-        <message-conversation-component
-          v-for="message in messages"
-          :key="message.id"
-          :written-by-me="message.written_by_me"
-        >{{ message.content}}</message-conversation-component>
+        <b-card-body class="card-body-scrool">
+          <message-conversation-component
+            v-for="message in messages"
+            :key="message.id"
+            :written-by-me="message.written_by_me"
+          >{{ message.content}}</message-conversation-component>
+        </b-card-body>
 
         <div slot="footer">
           <b-form class="mb-0" @submit.prevent="postMessage" autocomplete="off">
@@ -77,3 +80,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.card-body-scrool {
+  max-height: calc(90vh - 63px);
+  overflow-y: auto;
+}
+</style>
