@@ -2045,7 +2045,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.getConversations();
-    Echo.channel("users.".concat(this.userId)).listen("MessageSent", function (data) {
+    Echo.private("users.".concat(this.userId)).listen("MessageSent", function (data) {
       var message = data.message;
       message.written_by_me = false;
 
