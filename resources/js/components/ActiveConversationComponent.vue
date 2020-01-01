@@ -71,10 +71,11 @@ export default {
         content: this.newMessage
       };
       axios.post("/api/messages", params).then(response => {
-        // console.log(response.data);
         if (response.data.succes) {
           this.newMessage = "";
-          this.$emit("messageCreated", response.data.message);
+          const message = response.data.message;
+          message.written_by_me = true;
+          this.$emit("messageCreated", message);
         }
       });
     },
