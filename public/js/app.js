@@ -1840,6 +1840,8 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(response.data);
         if (response.data.succes) {
           _this.newMessage = "";
+
+          _this.$emit("messageCreated", response.data.message);
         }
       });
     },
@@ -2024,6 +2026,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userId: Number
@@ -2037,12 +2040,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("example").listen("MessageSent", function (data) {
-      var message = data.message;
-      message.writen_by_me = _this.userId == message.from_id;
+    Echo.channel("users.".concat(this.userId)).listen("MessageSent", function (data) {
       console.log(message);
+      var message = data.message;
 
-      _this.messages.push(message);
+      _this.addMessage(message);
     });
   },
   methods: {
@@ -2057,6 +2059,10 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(response.data);
         _this2.messages = response.data;
       });
+    },
+    addMessage: function addMessage(message) {
+      message.writen_by_me = this.userId == message.from_id;
+      this.messages.push(message);
     }
   }
 });
@@ -38116,6 +38122,11 @@ var render = function() {
                       "contact-id": _vm.selectedConversation.contact_id,
                       "contact-name": _vm.selectedConversation.contact_name,
                       messages: _vm.messages
+                    },
+                    on: {
+                      messageCreated: function($event) {
+                        return _vm.addMessage($event)
+                      }
                     }
                   })
                 : _vm._e()

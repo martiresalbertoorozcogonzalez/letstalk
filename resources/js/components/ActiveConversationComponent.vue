@@ -74,6 +74,7 @@ export default {
         // console.log(response.data);
         if (response.data.succes) {
           this.newMessage = "";
+          this.$emit("messageCreated", response.data.message);
         }
       });
     },
