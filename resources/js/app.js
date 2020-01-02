@@ -6,6 +6,11 @@ import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 
 Vue.component(
+    "profile-form-component",
+    require("./components/ProfileFormComponent.vue").default
+);
+
+Vue.component(
     "status-component",
     require("./components/StatusComponent.vue").default
 );

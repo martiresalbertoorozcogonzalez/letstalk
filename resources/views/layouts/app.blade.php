@@ -24,7 +24,7 @@
 <b-navbar toglleable type="dark" variant="primary">
     <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
 
-        <b-navbar-brand href="{{ url('/') }}">
+        <b-navbar-brand href="{{ url('/home') }}">
         {{ config('app.name', 'Letstalk') }}
         </b-navbar-brand>
 
@@ -36,6 +36,9 @@
                 <b-nav-item href="{{ route('register') }}">Registrar</b-nav-item>
               @else  
                 <b-nav-item-dropdown text="{{ auth()->user()->name }}" right>
+                <b-dropdown-item href="{{ url('/profile') }}">
+                    Editar perfil
+                  </b-dropdown-item>
                   <b-dropdown-item href="#" @click="logout">
                     Cerrar sesion
                   </b-dropdown-item>
