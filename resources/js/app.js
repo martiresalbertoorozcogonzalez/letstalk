@@ -6,6 +6,11 @@ import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 
 Vue.component(
+    "status-component",
+    require("./components/StatusComponent.vue").default
+);
+
+Vue.component(
     "messenger-component",
     require("./components/MessengerComponent.vue").default
 );

@@ -15,16 +15,11 @@
 
             <b-col cols="6" align-self="center" class="d-none d-md-block">
                 <p class="mb-1">
-                    <b-img
-                        rounded="circle"
-                        blank
-                        width="10"
-                        heigth="10"
-                        blank-color="black"
-                        alt="Circle image"
-                    />
+                    <status-component :online="conversation.online" />
+
                     {{ conversation.contact_name }}
                 </p>
+
                 <p class="text-muted small mb-1">
                     {{ conversation.last_message }}
                 </p>
