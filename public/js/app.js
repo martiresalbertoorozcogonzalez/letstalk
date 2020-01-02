@@ -1854,8 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   updated: function updated() {
-    this.scrollToBottom();
-    console.log("el mensage a cambiado");
+    this.scrollToBottom(); // console.log("el mensage a cambiado");
   }
 });
 

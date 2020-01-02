@@ -89,7 +89,7 @@ export default {
   },
   updated() {
     this.scrollToBottom();
-    console.log("el mensage a cambiado");
+    // console.log("el mensage a cambiado");
   }
 };
 </script>
