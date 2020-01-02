@@ -1,9 +1,11 @@
 require("./bootstrap");
 
-window.Vue = require("vue");
-
+import Vue from "vue";
+import Vuex from "vuex";
 import BootstrapVue from "bootstrap-vue";
+
 Vue.use(BootstrapVue);
+Vue.use(Vuex);
 
 Vue.component(
     "profile-form-component",
@@ -40,8 +42,15 @@ Vue.component(
     require("./components/ActiveConversationComponent.vue").default
 );
 
+const store = new Vuex.Store({
+    state: {
+        messages: []
+    }
+});
+
 const app = new Vue({
     el: "#app",
+    store,
     methods: {
         logout() {
             document.getElementById("logout-form").submit();

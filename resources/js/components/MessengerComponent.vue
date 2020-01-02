@@ -24,7 +24,6 @@
           :contact-name="selectedConversation.contact_name"
           :contact-image="selectedConversation.contact_image"
           :my-image="myImageUrl"
-          :messages="messages"
           @messageCreated="addMessage($event)"
         ></active-conversation-component>
       </b-col>
@@ -40,7 +39,6 @@ export default {
   data() {
     return {
       selectedConversation: null,
-      messages: [],
       conversations: [],
       querySearch: ""
     };
@@ -71,7 +69,7 @@ export default {
         .get(`/api/messages?contact_id=${this.selectedConversation.contact_id}`)
         .then(response => {
           // console.log(response.data);
-          this.messages = response.data;
+          this.$store.state.messages = response.data;
         });
     },
     addMessage(message) {
@@ -91,7 +89,7 @@ export default {
         this.selectedConversation.contact_id == message.from_id ||
         this.selectedConversation.contact_id == message.to_id
       ) {
-        this.messages.push(message);
+        this.$store.state.messages.push(message);
       }
     },
     getConversations() {

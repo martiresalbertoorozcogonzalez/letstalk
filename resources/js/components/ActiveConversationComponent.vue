@@ -57,7 +57,6 @@ export default {
     contactId: Number,
     contactName: String,
     contactImage: String,
-    messages: Array,
     myImage: String
   },
   data() {
@@ -86,6 +85,11 @@ export default {
       const el = document.querySelector(".card-body-scroll");
       el.scrollTop = el.scrollHeight;
     }
+  },
+  computed: {
+      messages(){
+        return this.$store.state.messages;
+      }
   },
   updated() {
     this.scrollToBottom();
