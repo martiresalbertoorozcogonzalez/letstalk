@@ -1901,13 +1901,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    variant: String,
-    conversation: Object
+    conversation: Object,
+    selected: Boolean
   },
   data: function data() {
     return {};
@@ -1916,6 +1913,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     lastTime: function lastTime() {
       return moment(this.conversation.last_time, "YYYY-MM-DD hh:mm:ss").locale("es").fromNow();
+    },
+    variant: function variant() {
+      return this.selected ? "info" : "";
     }
   }
 });
@@ -1943,22 +1943,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     conversations: Array
   },
   data: function data() {
-    return {};
+    return {
+      selectedConversationId: null
+    };
   },
   mounted: function mounted() {},
   methods: {
     selectConversation: function selectConversation(conversation) {
-      // console.log(conversation);
+      this.selectedConversationId = conversation.id;
       this.$emit("conversationSelected", conversation);
     }
   }
@@ -55724,20 +55721,16 @@ var render = function() {
                     attrs: { online: _vm.conversation.online }
                   }),
                   _vm._v(
-                    "\n\n                " +
+                    "\n        " +
                       _vm._s(_vm.conversation.contact_name) +
-                      "\n            "
+                      "\n      "
                   )
                 ],
                 1
               ),
               _vm._v(" "),
               _c("p", { staticClass: "text-muted small mb-1" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.conversation.last_message) +
-                    "\n            "
-                )
+                _vm._v(_vm._s(_vm.conversation.last_message))
               ])
             ]
           ),
@@ -55785,7 +55778,10 @@ var render = function() {
     _vm._l(_vm.conversations, function(conversation) {
       return _c("contact-component", {
         key: conversation.id,
-        attrs: { conversation: conversation },
+        attrs: {
+          conversation: conversation,
+          selected: _vm.selectedConversationId === conversation.id
+        },
         nativeOn: {
           click: function($event) {
             return _vm.selectConversation(conversation)
