@@ -3,8 +3,8 @@
         <b-row class="p-2" align-h="center">
             <b-col cols="12" md="3" class="text-center">
                 <b-img
+                    :src="conversation.contact_image"
                     rounded="circle"
-                    blank
                     width="60"
                     heigth="60"
                     blank-color="#777"

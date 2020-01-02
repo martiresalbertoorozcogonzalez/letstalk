@@ -8,9 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'LestsTalk') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
   
 </head>
 <body class="h-100">
@@ -20,8 +18,8 @@
 </form>    
 
 <div id="app" class="h-100">
-        
-<b-navbar toglleable type="dark" variant="primary">
+
+ <b-navbar toglleable type="dark" variant="primary">
     <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
 
         <b-navbar-brand href="{{ url('/home') }}">
@@ -47,12 +45,13 @@
             </b-navbar-nav>
 
         </b-collapse>    
-</b-navbar>
+ </b-navbar>
 
-
-        @yield('content')
+ @yield('content')
 
 </div>
 
+<!-- Scripts -->
+<script src="{{ mix('js/app.js') }}" defer></script>
 </body>
 </html>

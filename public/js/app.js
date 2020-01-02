@@ -1820,7 +1820,9 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     contactId: Number,
     contactName: String,
-    messages: Array
+    contactImage: String,
+    messages: Array,
+    myImage: String
   },
   data: function data() {
     return {
@@ -1984,7 +1986,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    writtenByMe: Boolean
+    writtenByMe: Boolean,
+    image: String
   },
   data: function data() {
     return {
@@ -2039,9 +2042,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    userId: Number
+    user: Object
   },
   data: function data() {
     return {
@@ -2055,7 +2059,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.getConversations();
-    Echo.private("users.".concat(this.userId)).listen("MessageSent", function (data) {
+    Echo.private("users.".concat(this.user.id)).listen("MessageSent", function (data) {
       var message = data.message;
       message.written_by_me = false;
 
@@ -2088,7 +2092,7 @@ __webpack_require__.r(__webpack_exports__);
       var conversation = this.conversations.find(function (conversation) {
         return conversation.contact_id == message.from_id || conversation.contact_id == message.to_id;
       });
-      var author = this.userId === message.from_id ? "Tu" : conversation.contact_name;
+      var author = this.user.id === message.from_id ? "Tu" : conversation.contact_name;
       conversation.last_message = message.content;
       conversation.last_time = message.created_at;
 
@@ -2111,6 +2115,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    myImageUrl: function myImageUrl() {
+      return "/users/".concat(this.user.image);
+    },
     conversationsFiltered: function conversationsFiltered() {
       var _this4 = this;
 
@@ -55549,7 +55556,12 @@ var render = function() {
                     "message-conversation-component",
                     {
                       key: message.id,
-                      attrs: { "written-by-me": message.written_by_me }
+                      attrs: {
+                        "written-by-me": message.written_by_me,
+                        image: message.written_by_me
+                          ? _vm.myImage
+                          : _vm.contactImage
+                      }
                     },
                     [_vm._v(_vm._s(message.content))]
                   )
@@ -55628,11 +55640,10 @@ var render = function() {
           _c("b-img", {
             staticClass: "m-1",
             attrs: {
+              src: _vm.contactImage,
               rounded: "circle",
-              blank: "",
               width: "60",
               heigth: "60",
-              "blank-color": "#777",
               alt: "Circle image"
             }
           }),
@@ -55686,8 +55697,8 @@ var render = function() {
               _c("b-img", {
                 staticClass: "m-1",
                 attrs: {
+                  src: _vm.conversation.contact_image,
                   rounded: "circle",
-                  blank: "",
                   width: "60",
                   heigth: "60",
                   "blank-color": "#777",
@@ -55817,9 +55828,8 @@ var render = function() {
       _c("b-img", {
         attrs: {
           slot: "aside",
+          src: _vm.image,
           rounded: "circle",
-          blank: "",
-          "blank-color": "#ccc",
           width: "50",
           alt: "placeholder"
         },
@@ -55905,6 +55915,8 @@ var render = function() {
                     attrs: {
                       "contact-id": _vm.selectedConversation.contact_id,
                       "contact-name": _vm.selectedConversation.contact_name,
+                      "contact-image": _vm.selectedConversation.contact_image,
+                      "my-image": _vm.myImageUrl,
                       messages: _vm.messages
                     },
                     on: {
