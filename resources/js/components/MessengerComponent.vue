@@ -56,14 +56,6 @@ export default {
       .leaving(user => this.changeStatus(user, false));
   },
   methods: {
-    getMessages() {
-      axios
-        .get(`/api/messages?contact_id=${this.selectedConversation.contact_id}`)
-        .then(response => {
-          // console.log(response.data);
-          this.$store.commit("newMessagesList", response.data);
-        });
-    },
     addMessage(message) {
       const conversation = this.conversations.find(conversation => {
         return (

@@ -1952,7 +1952,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     selectConversation: function selectConversation(conversation) {
-      this.$store.commit("selectConversation", conversation);
+      this.$store.dispatch("getMessages", conversation);
     },
     isSelected: function isSelected(conversation) {
       if (this.selectedConversation) {
@@ -2075,14 +2075,6 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    getMessages: function getMessages() {
-      var _this2 = this;
-
-      axios.get("/api/messages?contact_id=".concat(this.selectedConversation.contact_id)).then(function (response) {
-        // console.log(response.data);
-        _this2.$store.commit("newMessagesList", response.data);
-      });
-    },
     addMessage: function addMessage(message) {
       var conversation = this.conversations.find(function (conversation) {
         return conversation.contact_id == message.from_id || conversation.contact_id == message.to_id;
@@ -2096,10 +2088,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getConversations: function getConversations() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.get("/api/conversations").then(function (response) {
-        _this3.conversations = response.data;
+        _this2.conversations = response.data;
       });
     },
     changeStatus: function changeStatus(user, status) {
@@ -2117,10 +2109,10 @@ __webpack_require__.r(__webpack_exports__);
       return "/users/".concat(this.user.image);
     },
     conversationsFiltered: function conversationsFiltered() {
-      var _this4 = this;
+      var _this3 = this;
 
       return this.conversations.filter(function (conversation) {
-        return conversation.contact_name.toLowerCase().includes(_this4.querySearch.toLowerCase());
+        return conversation.contact_name.toLowerCase().includes(_this3.querySearch.toLowerCase());
       });
     }
   }
@@ -69371,6 +69363,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     selectConversation: function selectConversation(state, conversation) {
       state.selectedConversation = conversation;
+    }
+  },
+  actions: {
+    getMessages: function getMessages(context, conversation) {
+      axios.get("/api/messages?contact_id=".concat(conversation.contact_id)).then(function (response) {
+        context.commit("selectConversation", conversation);
+        context.commit("newMessagesList", response.data);
+      });
     }
   }
 });

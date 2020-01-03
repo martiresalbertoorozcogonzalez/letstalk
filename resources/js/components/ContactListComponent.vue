@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     selectConversation(conversation) {
-      this.$store.commit("selectConversation", conversation);
+      this.$store.dispatch("getMessages", conversation);
     },
     isSelected(conversation) {
       if (this.selectedConversation) {
