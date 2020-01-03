@@ -11,10 +11,7 @@
           ></b-form-input>
         </b-form>
 
-        <contact-list-component
-          @conversationSelected="changeActiveConversation($event)"
-          :conversations="conversationsFiltered"
-        ></contact-list-component>
+        <contact-list-component :conversations="conversationsFiltered" />
       </b-col>
 
       <b-col cols="8">
@@ -25,7 +22,7 @@
           :contact-image="selectedConversation.contact_image"
           :my-image="myImageUrl"
           @messageCreated="addMessage($event)"
-        ></active-conversation-component>
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -38,7 +35,6 @@ export default {
   },
   data() {
     return {
-      selectedConversation: null,
       conversations: [],
       querySearch: ""
     };
@@ -60,10 +56,6 @@ export default {
       .leaving(user => this.changeStatus(user, false));
   },
   methods: {
-    changeActiveConversation(conversation) {
-      this.selectedConversation = conversation;
-      this.getMessages();
-    },
     getMessages() {
       axios
         .get(`/api/messages?contact_id=${this.selectedConversation.contact_id}`)
@@ -105,6 +97,9 @@ export default {
     }
   },
   computed: {
+    selectedConversation() {
+      return this.$store.state.selectedConversation;
+    },
     myImageUrl() {
       return `/users/${this.user.image}`;
     },

@@ -44,7 +44,8 @@ Vue.component(
 
 const store = new Vuex.Store({
     state: {
-        messages: []
+        messages: [],
+        selectedConversation: null
     },
     mutations: {
         newMessagesList(state, messages) {
@@ -52,6 +53,9 @@ const store = new Vuex.Store({
         },
         addMessages(state, message) {
             state.messages.push(message);
+        },
+        selectConversation(state, conversation) {
+            state.selectedConversation = conversation;
         }
     }
 });

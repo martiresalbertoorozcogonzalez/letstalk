@@ -1950,16 +1950,21 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     conversations: Array
   },
-  data: function data() {
-    return {
-      selectedConversationId: null
-    };
-  },
-  mounted: function mounted() {},
   methods: {
     selectConversation: function selectConversation(conversation) {
-      this.selectedConversationId = conversation.id;
-      this.$emit("conversationSelected", conversation);
+      this.$store.commit("selectConversation", conversation);
+    },
+    isSelected: function isSelected(conversation) {
+      if (this.selectedConversation) {
+        return this.selectedConversation.id === conversation.id;
+      }
+
+      return false;
+    }
+  },
+  computed: {
+    selectedConversation: function selectedConversation() {
+      return this.$store.state.selectedConversation;
     }
   }
 });
@@ -2039,16 +2044,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     user: Object
   },
   data: function data() {
     return {
-      selectedConversation: null,
       conversations: [],
       querySearch: ""
     };
@@ -2074,10 +2075,6 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    changeActiveConversation: function changeActiveConversation(conversation) {
-      this.selectedConversation = conversation;
-      this.getMessages();
-    },
     getMessages: function getMessages() {
       var _this2 = this;
 
@@ -2113,6 +2110,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    selectedConversation: function selectedConversation() {
+      return this.$store.state.selectedConversation;
+    },
     myImageUrl: function myImageUrl() {
       return "/users/".concat(this.user.image);
     },
@@ -55781,7 +55781,7 @@ var render = function() {
         key: conversation.id,
         attrs: {
           conversation: conversation,
-          selected: _vm.selectedConversationId === conversation.id
+          selected: _vm.isSelected(conversation)
         },
         nativeOn: {
           click: function($event) {
@@ -55892,12 +55892,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("contact-list-component", {
-                attrs: { conversations: _vm.conversationsFiltered },
-                on: {
-                  conversationSelected: function($event) {
-                    return _vm.changeActiveConversation($event)
-                  }
-                }
+                attrs: { conversations: _vm.conversationsFiltered }
               })
             ],
             1
@@ -69364,7 +69359,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("contact-list-component", _
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("active-conversation-component", __webpack_require__(/*! ./components/ActiveConversationComponent.vue */ "./resources/js/components/ActiveConversationComponent.vue").default);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    messages: []
+    messages: [],
+    selectedConversation: null
   },
   mutations: {
     newMessagesList: function newMessagesList(state, messages) {
@@ -69372,6 +69368,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     addMessages: function addMessages(state, message) {
       state.messages.push(message);
+    },
+    selectConversation: function selectConversation(state, conversation) {
+      state.selectedConversation = conversation;
     }
   }
 });
