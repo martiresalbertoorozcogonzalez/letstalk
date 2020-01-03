@@ -69,7 +69,7 @@ export default {
         .get(`/api/messages?contact_id=${this.selectedConversation.contact_id}`)
         .then(response => {
           // console.log(response.data);
-          this.$store.state.messages = response.data;
+          this.$store.commit("newMessagesList", response.data);
         });
     },
     addMessage(message) {
@@ -89,7 +89,7 @@ export default {
         this.selectedConversation.contact_id == message.from_id ||
         this.selectedConversation.contact_id == message.to_id
       ) {
-        this.$store.state.messages.push(message);
+        this.$store.commit("addMessages", message);
       }
     },
     getConversations() {

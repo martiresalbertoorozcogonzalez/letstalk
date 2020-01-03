@@ -45,6 +45,14 @@ Vue.component(
 const store = new Vuex.Store({
     state: {
         messages: []
+    },
+    mutations: {
+        newMessagesList(state, messages) {
+            state.messages = messages;
+        },
+        addMessages(state, message) {
+            state.messages.push(message);
+        }
     }
 });
 
