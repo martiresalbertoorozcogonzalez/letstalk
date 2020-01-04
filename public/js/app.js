@@ -69313,16 +69313,15 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap-vue */ "./node_modules/bootstrap-vue/es/index.js");
-/* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap-vue */ "./node_modules/bootstrap-vue/es/index.js");
+/* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bootstrap_vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2___default.a);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_1___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("contact-form-component", __webpack_require__(/*! ./components/ContactFormComponent.vue */ "./resources/js/components/ContactFormComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("profile-form-component", __webpack_require__(/*! ./components/ProfileFormComponent.vue */ "./resources/js/components/ProfileFormComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("status-component", __webpack_require__(/*! ./components/StatusComponent.vue */ "./resources/js/components/StatusComponent.vue").default);
@@ -69331,78 +69330,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("message-conversation-compo
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("contact-component", __webpack_require__(/*! ./components/ContactComponent.vue */ "./resources/js/components/ContactComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("contact-list-component", __webpack_require__(/*! ./components/ContactListComponent.vue */ "./resources/js/components/ContactListComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("active-conversation-component", __webpack_require__(/*! ./components/ActiveConversationComponent.vue */ "./resources/js/components/ActiveConversationComponent.vue").default);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {
-    conversations: [],
-    messages: [],
-    selectedConversation: null,
-    querySearch: "",
-    user: null
-  },
-  mutations: {
-    setUser: function setUser(state, user) {
-      state.user = user;
-    },
-    newMessagesList: function newMessagesList(state, messages) {
-      state.messages = messages;
-    },
-    addMessages: function addMessages(state, message) {
-      var conversation = state.conversations.find(function (conversation) {
-        return conversation.contact_id == message.from_id || conversation.contact_id == message.to_id;
-      });
-      var author = state.user.id === message.from_id ? "Tu" : conversation.contact_name;
-      conversation.last_message = message.content;
-      conversation.last_time = message.created_at;
-      if (state.selectedConversation.contact_id == message.from_id || state.selectedConversation.contact_id == message.to_id) state.messages.push(message);
-    },
-    selectConversation: function selectConversation(state, conversation) {
-      state.selectedConversation = conversation;
-    },
-    newQuerySearch: function newQuerySearch(state, newValue) {
-      state.querySearch = newValue;
-    },
-    newConversationsList: function newConversationsList(state, conversations) {
-      state.conversations = conversations;
-    }
-  },
-  actions: {
-    getMessages: function getMessages(context, conversation) {
-      axios.get("/api/messages?contact_id=".concat(conversation.contact_id)).then(function (response) {
-        context.commit("selectConversation", conversation);
-        context.commit("newMessagesList", response.data);
-      });
-    },
-    getConversations: function getConversations(context, conversation) {
-      axios.get("/api/conversations").then(function (response) {
-        context.commit("newConversationsList", response.data);
-      });
-    },
-    postMessage: function postMessage(context, newMessage) {
-      var params = {
-        to_id: context.state.selectedConversation.contact_id,
-        content: newMessage
-      };
-      axios.post("/api/messages", params).then(function (response) {
-        if (response.data.succes) {
-          newMessage = "";
-          var message = response.data.message;
-          message.written_by_me = true;
-          context.commit("addMessage", message);
-        }
-      });
-    }
-  },
-  getters: {
-    conversationsFiltered: function conversationsFiltered(state) {
-      return state.conversations.filter(function (conversation) {
-        return conversation.contact_name.toLowerCase().includes(state.querySearch.toLowerCase());
-      });
-    }
-  }
-});
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#app",
-  store: store,
+  store: _store__WEBPACK_IMPORTED_MODULE_2__["default"],
   methods: {
     logout: function logout() {
       document.getElementById("logout-form").submit();
@@ -70036,6 +69966,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StatusComponent_vue_vue_type_template_id_08ccbc10___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/store.js":
+/*!*******************************!*\
+  !*** ./resources/js/store.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    conversations: [],
+    messages: [],
+    selectedConversation: null,
+    querySearch: "",
+    user: null
+  },
+  mutations: {
+    setUser: function setUser(state, user) {
+      state.user = user;
+    },
+    newMessagesList: function newMessagesList(state, messages) {
+      state.messages = messages;
+    },
+    addMessages: function addMessages(state, message) {
+      var conversation = state.conversations.find(function (conversation) {
+        return conversation.contact_id == message.from_id || conversation.contact_id == message.to_id;
+      });
+      var author = state.user.id === message.from_id ? "Tu" : conversation.contact_name;
+      conversation.last_message = message.content;
+      conversation.last_time = message.created_at;
+      if (state.selectedConversation.contact_id == message.from_id || state.selectedConversation.contact_id == message.to_id) state.messages.push(message);
+    },
+    selectConversation: function selectConversation(state, conversation) {
+      state.selectedConversation = conversation;
+    },
+    newQuerySearch: function newQuerySearch(state, newValue) {
+      state.querySearch = newValue;
+    },
+    newConversationsList: function newConversationsList(state, conversations) {
+      state.conversations = conversations;
+    }
+  },
+  actions: {
+    getMessages: function getMessages(context, conversation) {
+      axios.get("/api/messages?contact_id=".concat(conversation.contact_id)).then(function (response) {
+        context.commit("selectConversation", conversation);
+        context.commit("newMessagesList", response.data);
+      });
+    },
+    getConversations: function getConversations(context, conversation) {
+      axios.get("/api/conversations").then(function (response) {
+        context.commit("newConversationsList", response.data);
+      });
+    },
+    postMessage: function postMessage(context, newMessage) {
+      var params = {
+        to_id: context.state.selectedConversation.contact_id,
+        content: newMessage
+      };
+      axios.post("/api/messages", params).then(function (response) {
+        if (response.data.succes) {
+          newMessage = "";
+          var message = response.data.message;
+          message.written_by_me = true;
+          context.commit("addMessage", message);
+        }
+      });
+    }
+  },
+  getters: {
+    conversationsFiltered: function conversationsFiltered(state) {
+      return state.conversations.filter(function (conversation) {
+        return conversation.contact_name.toLowerCase().includes(state.querySearch.toLowerCase());
+      });
+    }
+  }
+}));
 
 /***/ }),
 
