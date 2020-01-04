@@ -35,10 +35,6 @@ export default {
     conversation: Object,
     selected: Boolean
   },
-  data() {
-    return {};
-  },
-  mounted() {},
   computed: {
     lastTime() {
       return moment(this.conversation.last_time, "YYYY-MM-DD hh:mm:ss")

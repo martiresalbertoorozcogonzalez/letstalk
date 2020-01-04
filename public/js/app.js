@@ -1894,10 +1894,6 @@ __webpack_require__.r(__webpack_exports__);
     conversation: Object,
     selected: Boolean
   },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
   computed: {
     lastTime: function lastTime() {
       return moment(this.conversation.last_time, "YYYY-MM-DD hh:mm:ss").locale("es").fromNow();
@@ -2189,11 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     online: Boolean
-  },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
