@@ -13,7 +13,7 @@
             v-for="message in messages"
             :key="message.id"
             :written-by-me="message.written_by_me"
-            :image="message.written_by_me ? myImage : contactImage"
+            :image="message.written_by_me ? myImage : selectedConversation.contact_image"
           >{{ message.content}}</message-conversation-component>
         </b-card-body>
 
@@ -37,14 +37,14 @@
     </b-col>
     <b-col cols="4">
       <b-img
-        :src="contactImage"
+        :src="selectedConversation.contact_image"
         rounded="circle"
         width="60"
         heigth="60"
         alt="Circle image"
         class="m-1"
       />
-      <p>{{contactName}}</p>
+      <p>{{selectedConversation.contact_name}}</p>
       <hr />
       <b-form-checkbox>Descativar notificaciones</b-form-checkbox>
     </b-col>
@@ -53,47 +53,33 @@
 
 <script>
 export default {
-  props: {
-    contactId: Number,
-    contactName: String,
-    contactImage: String,
-    myImage: String
-  },
   data() {
     return {
       newMessage: ""
     };
   },
-  mounted() {},
   methods: {
     postMessage() {
-      const params = {
-        to_id: this.contactId,
-        content: this.newMessage
-      };
-      axios.post("/api/messages", params).then(response => {
-        if (response.data.succes) {
-          this.newMessage = "";
-          const message = response.data.message;
-          message.written_by_me = true;
-          this.$emit("messageCreated", message);
-        }
-      });
+      this.$store.dispatch("postMessage", this.newMessage);
     },
-
     scrollToBottom() {
       const el = document.querySelector(".card-body-scroll");
       el.scrollTop = el.scrollHeight;
     }
   },
   computed: {
-      messages(){
-        return this.$store.state.messages;
-      }
+    myImage() {
+      return `/users/${this.$store.state.user.image}`;
+    },
+    selectedConversation() {
+      return this.$store.state.selectedConversation;
+    },
+    messages() {
+      return this.$store.state.messages;
+    }
   },
   updated() {
     this.scrollToBottom();
-    // console.log("el mensage a cambiado");
   }
 };
 </script>
