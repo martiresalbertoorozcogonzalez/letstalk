@@ -3,8 +3,13 @@ require("./bootstrap");
 import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 import store from "./store";
+import VueRouter from "vue-router";
+
+import MessengerComponent from "./components/MessengerComponent.vue";
+import ExampleComponent from "./components/ExampleComponent.vue";
 
 Vue.use(BootstrapVue);
+Vue.use(VueRouter);
 
 Vue.component(
     "contact-form-component",
@@ -21,10 +26,10 @@ Vue.component(
     require("./components/StatusComponent.vue").default
 );
 
-Vue.component(
-    "messenger-component",
-    require("./components/MessengerComponent.vue").default
-);
+// Vue.component(
+//     "messenger-component",
+//     require("./components/MessengerComponent.vue").default
+// );
 
 Vue.component(
     "message-conversation-component",
@@ -46,8 +51,20 @@ Vue.component(
     require("./components/ActiveConversationComponent.vue").default
 );
 
+const routes = [
+    { path: "/chat", component: MessengerComponent },
+    { path: "/chat/:conversationId", component: MessengerComponent },
+    { path: "/example", component: ExampleComponent }
+];
+
+const router = new VueRouter({
+    routes,
+    mode: "history"
+});
+
 const app = new Vue({
     el: "#app",
+    router,
     store,
     methods: {
         logout() {
